@@ -71,12 +71,9 @@ class FirestoreService:
 
     def get_analysis_records_for_user(self, user_id: str) -> List[Dict[str, object]]:
         """Return all analysis results for a single user."""
-        query = (
-            self.db.collection("analysis_results")
-            .where(filter=FieldFilter("user_id", "==", user_id))
-            .order_by("created_at", direction=firestore.Query.DESCENDING)
-        )
-        return [document.to_dict() for document in query.stream()]
+        query = self.db.collection("analysis_results").where(filter=FieldFilter("user_id", "==", user_id))
+        records = [document.to_dict() for document in query.stream()]
+        return sorted(records, key=lambda record: str(record.get("created_at", "")), reverse=True)
 
     def get_all_analysis_records(self) -> List[Dict[str, object]]:
         """Return all analysis results across users."""
