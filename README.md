@@ -267,3 +267,8 @@ service firebase.storage {
 - Keep Firebase secrets in the deployment platform's secret manager.
 - Ensure the service account key is never committed.
 - If you need private file access, replace `blob.make_public()` with signed URLs or authenticated download flows.
+
+
+### Deployed Site:
+
+https://personality-prediction-23.streamlit.app/
